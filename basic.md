@@ -111,6 +111,13 @@
 
 
 
+5. Spring Security 动态标签用例
+    
+    a. 导入
+![importSecurityTaglib](imagePool/importSecurityTaglib.png)
 
-
-
+    b. 提交form表单时为拦截CSRF跨域攻击提供token
+![formSubmitCsrfToken](imagePool/formSubmitCsrfToken.png)
+    
+    c. 动态显示登陆用户名
+![displayLoginUsername](imagePool/displayLoginUsername.png)
