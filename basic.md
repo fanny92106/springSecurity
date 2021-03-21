@@ -13,7 +13,7 @@
         - spring security
 
 
-3. Spring Security 中常用的15个过滤器 (AOP)
+3. Spring Security 中常用的15个过滤器 (AOP) - 封装在SecurityFilterChain (i), 实现于DefaultSecurityFilterChian (c)
         
         - 1.org.springframework.security.web.context.SecurityContextPersistenceFilter
         使用SecurityContextRepository在session中保存或更新一个SecurityContext,(spring security 容器初始化)，并将SecurityContext给以后的过滤器使用，为后续filter提供所需的上下文
@@ -62,4 +62,55 @@
         - 15.org.springframework.security.web.access.intercept.FilterSecurityInterceptor
         获取所配置资源访问的授权信息，根据SecurityContextHolder中存储的用户信息来决定其是否有权限
         
+        
+4. 开发过程
+
+    a. 引入Spring Security依赖
+
+        - spring-security-core (核心功能包)
+        - spring-security-web (web工程必备，包含过滤器和web安全基础结构代码)
+        - spring-security-config (动态地生成spring-security配置文件)
+        - spring-security-taglibs (动态标签库，jsp页面可用)
+        
+        
+    b. web.xml 中配置 filter
+![SpringSecurityFilter](imagePool/SpringSecurityFilter.png)
+    
+    
+    c. 在applicationContext.xml中引入spring-security.xml
+    ![importSpringSecurityConfigFileToSpringConfigFile](imagePool/importSpringSecurityConfigFileToSpringConfigFile.png)
+
+
+    d. 创建spring-security.xml 核心配置文件
+![SpringSecurityXmlConfigFile](imagePool/SpringSecurityXmlConfigFile.png)
+
+            
+         0) 放行匿名访问资源 
+            - 放行后不再经过其他过滤器
+![permitStaticResourceAnonymousAccess](imagePool/permitStaticResourceAnonymousAccess.png)
+
+            - 放行后仍需经过其他过滤器
+![permitLoginPageAccess.png](imagePool/permitLoginPageAccess.png)
+
+
+        1） 如果使用自定义的login页
+![customizedLoginPage](imagePool/customizedLoginPage.png)
+    
+    
+        2） 如果不适用内存认证，而使用jdbc认证: jdbc authenticate & BCrypt password encoding: 
+        
+            step0: spring-security.xml中配置
+![jdbcAuthenticationAndBcryptEncoding](imagePool/jdbcAuthenticationAndBcryptEncoding.png)
+
+            step1: UserService接口继承 UserDetailsService
+![UserService](imagePool/UserService.png)
+
+            step2: UserServiceImpl 实现UserService的方法，在loadUserByUsername中，通过username查找数据库
+        将返回的对象进行封装(包括用户名，密码，状态等)成UserDetails 对象，供SpringSecurity的/login处理器进行认证
+![UserServiceImpl](imagePool/UserServiceImpl.png)
+
+
+
+
+
 
