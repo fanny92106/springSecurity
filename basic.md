@@ -63,7 +63,7 @@
         获取所配置资源访问的授权信息，根据SecurityContextHolder中存储的用户信息来决定其是否有权限
         
         
-4. 开发过程
+4. Authentication 认证
 
     a. 引入Spring Security依赖
 
@@ -121,3 +121,27 @@
     
     c. 动态显示登陆用户名
 ![displayLoginUsername](imagePool/displayLoginUsername.png)
+    
+    d. 授权 - 隐藏资源入口, 但还是可以通过 url 进行访问
+![authorization](imagePool/authorization.png)
+
+
+
+6. Authorization 授权
+
+    a. 启动权限管理的配置 (三种当中选一种就好)，在springMVC文件中
+![spring-security-authorization-config](imagePool/spring-security-authorization-config.png)
+
+    b. 前端界面隐藏资源入口
+![authorization](imagePool/authorization.png)
+
+    c. 后端限制访问 (可在controller层或service层加注解，响应的调整权限启动配置所在的位置)
+        
+        - 1) spring security annotation, 配置 secured-annotations="enabled"
+![springSecurityAnnotation](imagePool/springSecurityAnnotation.png)
+    
+       - 2) javax.innotation.security, 配置 jsr250-annotations="enabled"
+![javaxAnnotationSecurity](imagePool/javaxAnnotationSecurity.png)
+    
+       - 3) spring El expression annotation, 配置 pre-post-annotations="enabled"
+![springElExpressionAnnotation](imagePool/springElExpressionAnnotation.png)
