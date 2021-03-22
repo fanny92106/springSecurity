@@ -145,3 +145,14 @@
     
        - 3) spring El expression annotation, 配置 pre-post-annotations="enabled"
 ![springElExpressionAnnotation](imagePool/springElExpressionAnnotation.png)
+
+
+
+7. Exception 处理
+
+    a. 处理403异常 (只能处理 403)
+![403ExceptionHandler](imagePool/403ExceptionHandler.png)
+
+
+    b. @ControllerAdvice + @ExceptionHandler (Exception.class)
+![securityExceptionHandle](imagePool/securityExceptionHandle.png)
